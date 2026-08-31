@@ -1,11 +1,28 @@
+using Android.Net.Vcn;
+using MauiApp1MinhasCompras.Models;
+using System.Collections.ObjectModel;
+
 namespace MauiApp1MinhasCompras.Views;
 
 public partial class ListaProduto : ContentPage
+
 {
+	ObservableCollection<Produto> lista = new ObservableCollection<Produto>();
 	public ListaProduto()
 	{
 		InitializeComponent();
+
+		lst_produtos.ItemsSource = lista;
+    }
+
+	protected override async Task OnAppearing()
+	{
+		List<Produto> tmp = await App.Db.GetAll();
+
+		tmp.FordEach(in => lista.Add(in));
 	}
+
+
 	private void ToolbarItem_Clicked(object sender, EventArgs e)
     {
 		try 
@@ -19,5 +36,23 @@ public partial class ListaProduto : ContentPage
         }
 
  
+    }
+	private async void txt_search(Object sender, TextChangedEventArgs e)
+
+	{
+		string q = e.NewTextValue;
+		lista.Clear();
+		Temp.FordEach(in => lista.Add(in));
+    }
+
+	private void ToobalrItem_Clicked_1(object sender, EventArgs e)
+    {
+		double soma = lista.Sum(i => i.Total);
+		string msg = $"O total é: {soma:C)}";
+		DisplayAlert("Total dos Produtos", msg, "OK");
+    }
+	private void MenuItem_Clicked(object sender, EventArgs e)
+    {
+       
     }
 }
