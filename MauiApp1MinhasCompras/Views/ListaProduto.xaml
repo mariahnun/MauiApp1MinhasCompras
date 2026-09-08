@@ -6,18 +6,18 @@
 
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Somar"/>
+        <ToolbarItem Text="Somar" Clicked="ToolbarItem_Clicked_1"   />
         <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked" />
-        <ToolbarItem />
     </ContentPage.ToolbarItems>
     
     
-    
     <VerticalStackLayout>
-        <SearchBar x:Name="txt_search"  Placeholder="Busca de Produtos"/>
-        <>ListView x:Name="lst_Produtos">
+        <SearchBar x:Name="txt_search"  
+                   Placeholder="Busca de Produtos" 
+                   TextChanged="txt_search_TextChanged"/>
+        <ListView x:Name="lst_produtos" ItemSelected="lst_produtos_ItemSelected">
             <ListView.Header>
-                <Grid ColumnDefinitions="*,*, *, *, *, *, *">
+                <Grid ColumnDefinitions="*, *, *, *, *">
                     <Label Grid.Column="0" Text="ID" />
                     <Label Grid.Column="1" Text="Descrição" />
                     <Label Grid.Column="2" Text="Preço" />
@@ -31,10 +31,10 @@
                     <ViewCell>
                         <ViewCell.ContextActions>
 
-                            <MenuItem Text="Remover" Clicked="MenuItem_Clicked"/>
+                            <MenuItem Text="Remover" Clicked="MenuItemRemove_Clicked"/>
                             
                         </ViewCell.ContextActions>
-                        <Grid ColumnDefinitions="*,*, *, *, *, *, *">
+                        <Grid ColumnDefinitions="*, *, *, *, *">
                             <Label Grid.Column="0" Text="{Binding Id}" />
                             <Label Grid.Column="1" Text="{Binding Descricao}" />
                             <Label Grid.Column="2" Text="{Binding Preco}" />
@@ -42,7 +42,9 @@
                             <Label Grid.Column="4" Text="{Binding Total}" />
 
                         </Grid>
-                  <ViewCell>
-             </ListView.Header>
+                  </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+          </ListView>
     </VerticalStackLayout>
 </ContentPage>
